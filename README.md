@@ -1,20 +1,24 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# AI Media Studio — Next.js + Vercel
 
-# Run and deploy your AI Studio app
+Pronto para deploy no Vercel com suporte a:
+- Chat de texto com Gemini
+- Edição de imagem via upload
+- **Voz** (permite microfone) com envio de áudio para Gemini
 
-This contains everything you need to run your app locally.
+## Como usar
+1) Crie `.env.local` (não commitar) com:
+```
+GOOGLE_API_KEY=coloque_sua_chave_aqui
+```
+2) No Vercel: *Project* → **Settings → Environment Variables** → adicione `GOOGLE_API_KEY`.
+3) `npm i` → `npm run dev` (local) e depois deploy no Vercel.
+4) A página inicial (`/`) tem exemplos de UI.
 
-View your app in AI Studio: https://ai.studio/apps/temp/2
+## Rotas
+- `POST /api/chat` → `{ prompt }`
+- `POST /api/edit-image` → `multipart/form-data` com `image` e (opcional) `instruction`
+- `POST /api/chat-voice` → `multipart/form-data` com `audio` (`audio/webm` recomendado) e (opcional) `instruction`
 
-## Run Locally
-
-**Prerequisites:**  Node.js
-
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Observações
+- Não exponha a chave no cliente. Todas as chamadas ao Gemini ocorrem no servidor.
+- O `metadata.json` na raiz declara a permissão de **microfone**.
